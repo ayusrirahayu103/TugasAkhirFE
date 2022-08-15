@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posyandu || Ayu Sri Rahayu</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-slate-900">
+    <header class="flex justify-center items-center w-full h-[90px] p-6 bg-cyan-500">
+        <figure class="flex items-center pl-[50px]">
+            <h1 class="font-bold text-2xl uppercase">Posyandu Desa. Tanjung Jaya</h1>
+        </figure>
+    </header>
+    <main class="mt-[100px] text-white w-full h-[20px]">
+        <div class="flex justify-center flex-col items-center text-white gap-y-10" id="app">
+                <form  @submit.prevent="bayi.isUpdate ? updateBayi() : submitBayi()"
+                class="flex justify-center items-center flex-col">
+                    <figure>
+                        <h1 class="text-2xl font-bold">Form Pendataan Bayi Desa Tanjung Jaya</h1>
+                    </figure>
+                    <div class="flex flex-col items-center gap-y-2 mt-[70px]">
+                        <span>Nama Bayi</span>
+                        <input class="w-[300px] h-[30px] border-[1px] rounded text-black" v-model="bayi.namabayi" type="text">
+                        <span>Umur (Bulan)</span>
+                        <input class="w-[300px] h-[30px] border-[1px] rounded text-black" v-model="bayi.umur" type="number">
+                        <span>Nama Ibu</span>
+                        <input class="w-[300px] h-[30px] border-[1px] rounded text-black" v-model="bayi.namaibu" type="text">
+                        <span>Tahun Kelahiran</span>
+                        <input class="w-[300px] h-[30px] border-[1px] rounded text-black" v-model="bayi.tahunlahir" type="text">
+                        <button type="submit" class="w-[210px] h-[50px] border-[2px] rounded mt-[10px]">{{ bayi.isUpdate ? 'Update Data Bayi' : 'Masukkan Data Bayi'}}</button>
+                    </div>
+                    <span class="text-[15px] mt-[15px] ">Created By Ayu Sri Rahayu</span>
+                </form>
+
+            <table class="w-[800px] text-sm text-left text-neutral-600 mt-[300px]">
+                <thead class="text-xs text-gray-700 bg-gray-700 text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Id
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Nama Bayi
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Umur (Bulan)
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Nama Ibu
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Tahun Kelahiran
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Keterangan
+                        </th>
+                    </tr>
+                </thead>
+                <tbody v-for="(data, id) in bayi.listbayi" :key="id">
+                    <tr class="bg-white bg-blue-200 items-center">
+                        <td class="px-6 py-4">
+                            {{data.id}}
+                        </td>
+                        <th class="px-6 py-4 font-medium">
+                            {{data.namabayi}}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{data.umur}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{data.namaibu}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{data.tahunlahir}}
+                        </td>
+                        <td class="flex px-6 py-4 text-right gap-x-4">
+                            <button class="text-green-600 font-bold" @click="getBayiById(data.id)">Edit</button>
+                            |
+                            <button class="text-rose-600 font-bold" @click="deleteBayi(data.id)">Hapus</button>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script src="./index.js"></script>
+</body>
+</html>
